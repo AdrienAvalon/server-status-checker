@@ -1,19 +1,30 @@
 <div align="center">
 
+<img src="docs/assets/readme-hero.svg" alt="server-status-checker — chemin conceptuel d’un contrôle entre Vue, API et ping ICMP" width="960">
+
 # server-status-checker
 
-**Un tableau de bord pour voir quels serveurs répondent au ping.**
+**Un inventaire YAML et une vue d’ensemble des machines qui répondent au ping.**
 
-Un inventaire YAML, une interface Vue et une petite API Node.js pour
-visualiser la joignabilité de machines depuis un poste de test.
+Un prototype Vue et Node.js pour explorer la joignabilité réseau,
+la recherche par machine et l’actualisation périodique.
 
-[Démarrer](#essayer-en-développement) · [Architecture](#dans-le-dépôt) · [Limites](#portée-et-limites)
+[![Vue 3](https://img.shields.io/badge/interface-Vue%203-42b883?style=flat-square&logo=vuedotjs&logoColor=white)](src/components/ServerStatus.vue)
+[![Express](https://img.shields.io/badge/API-Express-5fa04e?style=flat-square&logo=express&logoColor=white)](server.js)
+[![YAML](https://img.shields.io/badge/inventaire-YAML-cb7171?style=flat-square&logo=yaml&logoColor=white)](servers.yaml)
+[![Prototype](https://img.shields.io/badge/statut-prototype-d8a657?style=flat-square)](#portée-et-limites)
 
-[![Vue](https://img.shields.io/badge/interface-Vue%203-42b883)](src/components/ServerStatus.vue)
-[![Node.js](https://img.shields.io/badge/API-Express-5fa04e)](server.js)
-[![Prototype](https://img.shields.io/badge/statut-prototype-8b7cf6)](#portée-et-limites)
+[Fonctions](#en-bref) · [Essai local](#essayer-en-développement) · [Architecture](#dans-le-dépôt) · [Limites](#portée-et-limites)
 
 </div>
+
+Les exemples d’utilisation ci-dessous s’adressent aux personnes disposant des
+autorisations nécessaires. [Droits et conditions de réutilisation](RIGHTS.md).
+
+> [!WARNING]
+> À réserver à un environnement de test isolé : l’API utilise une commande
+> shell avec une entrée non validée et ne dispose pas d’authentification.
+> Le [périmètre actuel](#portée-et-limites) doit être revu avant toute exposition.
 
 ## En bref
 
@@ -23,7 +34,7 @@ visualiser la joignabilité de machines depuis un poste de test.
 | **Contrôle** | un ping ICMP par serveur, exécuté par le backend |
 | **Actualisation** | lancement d'une vérification toutes les 30 secondes |
 | **Recherche** | filtrage des cartes par nom ou adresse IP |
-| **Vue d'ensemble** | compteurs des serveurs affichés en ligne et hors ligne |
+| **Vue d'ensemble** | compteurs en ligne et hors ligne sur tout l’inventaire |
 | **Interface** | cartes, indicateurs colorés et mise en page adaptée à la largeur de l'écran |
 
 Le statut correspond à la réponse au ping. Il ne mesure pas la santé d'une
@@ -31,11 +42,9 @@ application ou la disponibilité d'un service HTTP.
 
 ## Essayer en développement
 
-Le projet utilise Node.js, npm et la commande Unix `ping -c 1`. Il est prévu
-pour une expérimentation dans un environnement isolé : l'API actuelle
-n'authentifie pas les appels et insère le paramètre `ip` dans une commande
-shell sans validation. **Ne l'exposez pas à un réseau non fiable.** Le backend
-écoute sur le port 3000 sans se limiter explicitement à l'adresse de bouclage.
+Le projet utilise Node.js, npm et la commande Unix `ping -c 1`. Le backend
+écoute sur le port 3000 sans se limiter explicitement à l’adresse de bouclage :
+utilisez une machine de test isolée, conformément à la limite indiquée plus haut.
 
 ```bash
 git clone https://github.com/AdrienAvalon/server-status-checker.git
@@ -107,6 +116,8 @@ entrées, puis définir ses contrôles d'accès.
 
 Ouvrez une [issue](https://github.com/AdrienAvalon/server-status-checker/issues)
 ou une pull request avec le comportement observé et les étapes pour le
-reproduire. Le dépôt ne contient pas de suite de tests automatisés ni de
-licence explicite ; les conditions de réutilisation sont à clarifier avec
-l'auteur.
+reproduire. Le dépôt ne contient pas de suite de tests automatisés.
+
+Les contributions originales non déjà licenciées restent à [droits réservés](RIGHTS.md).
+Réutilisation et exploitation commerciale nécessitent un accord écrit préalable ;
+la rémunération commerciale est convenue dans cet accord.
